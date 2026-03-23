@@ -1,0 +1,439 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+
+.stage{
+  background:#E8E5E0;
+  padding:28px 16px 36px;
+  display:flex;flex-direction:column;align-items:center;
+}
+
+.phone{
+  width:355px;
+  background:#1a1a1a;
+  border-radius:50px;
+  padding:10px;
+  box-shadow:0 2px 0 2px #0a0a0a;
+}
+
+.phone-inner{
+  border-radius:42px;
+  overflow:hidden;
+  background:#fff;
+  position:relative;
+}
+
+.status-bar{
+  background:#fff;
+  padding:14px 20px 6px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.status-time{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#111}
+.status-icons{display:flex;align-items:center;gap:5px}
+.status-icon{width:15px;height:15px;stroke:#111;fill:none;stroke-width:1.8;stroke-linecap:round}
+
+.browser-bar{
+  background:#fff;
+  padding:6px 12px 8px;
+  border-bottom:1px solid #f0f0f0;
+}
+.url-bar{
+  background:#F2F2F2;
+  border-radius:10px;
+  padding:7px 12px;
+  display:flex;align-items:center;gap:7px;
+}
+.url-lock{width:11px;height:11px;stroke:#888;fill:none;stroke-width:2;stroke-linecap:round}
+.url-text{font-family:'Inter',sans-serif;font-size:12px;color:#555;font-weight:400}
+.url-reload{width:14px;height:14px;stroke:#888;fill:none;stroke-width:1.8;stroke-linecap:round;margin-left:auto}
+
+.website{
+  height:560px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;
+  background:#fff;
+  transition:filter 0.3s ease;
+  position:relative;
+}
+.website::-webkit-scrollbar{display:none}
+.website.blurred{filter:blur(2px);pointer-events:none}
+
+.site-promo{
+  background:#111;color:#fff;
+  text-align:center;padding:6px;
+  font-family:'Inter',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+}
+
+.site-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;
+  border-bottom:1px solid #f0f0f0;
+}
+.site-logo{
+  font-family:'Playfair Display',serif;
+  font-size:16px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:#111;
+}
+.site-nav-icons{display:flex;gap:12px}
+.sni{width:16px;height:16px;stroke:#111;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+.weather-strip{
+  background:#F9F5F0;
+  padding:14px 16px 0;
+  border-bottom:1px solid #EEEBE6;
+  max-height:0;overflow:hidden;
+  transition:max-height 0.6s ease, opacity 0.5s ease;
+  opacity:0;
+}
+.weather-strip.open{max-height:200px;opacity:1}
+.w-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.w-loc{display:flex;align-items:center;gap:4px;font-size:9px;color:#888;margin-bottom:2px;font-family:'Inter',sans-serif}
+.w-dot{width:4px;height:4px;border-radius:50%;background:#111;flex-shrink:0}
+.w-desc{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;font-style:italic;color:#111;line-height:1.2}
+.w-temp{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:#111;line-height:1;text-align:right}
+.w-feels{font-family:'Inter',sans-serif;font-size:9px;color:#aaa;text-align:right;margin-top:1px}
+.skin-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:#fff;border:1px solid #E0DBD5;
+  padding:4px 9px;margin-bottom:12px;
+}
+.badge-line{width:12px;height:1px;background:#111;flex-shrink:0}
+.badge-t{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#111}
+.badge-s{font-family:'Inter',sans-serif;font-size:8px;color:#999;margin-top:1px}
+
+.shelf-wrap{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height 0.6s ease 0.15s, opacity 0.5s ease 0.2s;
+}
+.shelf-wrap.open{max-height:260px;opacity:1}
+
+.shelf-label{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:12px 16px 8px;
+}
+.shelf-h{font-family:'Playfair Display',serif;font-size:14px;font-weight:400;color:#111;line-height:1.3}
+.shelf-h em{font-style:italic}
+.shelf-all{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#111;border-bottom:1px solid #111;padding-bottom:1px;cursor:pointer}
+
+.cards-row{
+  display:flex;overflow-x:auto;
+  padding:0 16px 16px;scrollbar-width:none;gap:0;
+}
+.cards-row::-webkit-scrollbar{display:none}
+.pc{flex:0 0 118px;margin-right:8px}
+.pc-img{
+  width:118px;height:130px;
+  background:#F7F4F0;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:7px;overflow:hidden;
+}
+.why{position:absolute;bottom:0;left:0;right:0;background:#111;padding:5px 6px}
+.why-l{display:block;font-family:'Inter',sans-serif;font-size:7px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:1px}
+.why-t{font-family:'Inter',sans-serif;font-size:8px;color:#fff;line-height:1.3}
+.pc-cat{font-family:'Inter',sans-serif;font-size:8px;font-weight:400;letter-spacing:1px;text-transform:uppercase;color:#999;margin-bottom:2px}
+.pc-name{font-family:'Playfair Display',serif;font-size:11px;font-weight:400;color:#111;line-height:1.2;margin-bottom:5px}
+.pc-foot{display:flex;align-items:center;justify-content:space-between}
+.pc-price{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:#111}
+.pc-bag{width:22px;height:22px;border:1px solid #111;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+.site-hero{height:130px;background:#F7F4F0;margin:0;display:flex;align-items:flex-end;padding:14px 16px}
+.site-hero-t{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;font-style:italic;color:#111;line-height:1.25}
+.site-section{padding:14px 16px 0}
+.site-section-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#999;margin-bottom:8px}
+.site-chips{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:14px}
+.site-chip{font-family:'Inter',sans-serif;padding:5px 10px;border:0.5px solid #ddd;font-size:10px;color:#555;background:#fff}
+
+.geo-permission-wrap{
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  display:flex;flex-direction:column;
+  justify-content:flex-start;
+  z-index:30;
+  pointer-events:none;
+}
+
+.geo-bar{
+  background:#fff;
+  border-bottom:2px solid #E8E5E0;
+  padding:0;
+  transform:translateY(-100%);
+  transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);
+  pointer-events:all;
+}
+.geo-bar.show{transform:translateY(0)}
+
+.geo-site-row{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px 8px;
+  border-bottom:1px solid #f0f0f0;
+}
+.geo-favicon{
+  width:16px;height:16px;border-radius:3px;
+  background:#111;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.geo-favicon span{font-family:'Playfair Display',serif;font-size:8px;color:#fff;font-weight:400;letter-spacing:1px}
+.geo-domain{font-family:'Inter',sans-serif;font-size:11px;color:#333;font-weight:400}
+
+.geo-body{padding:10px 14px 14px}
+.geo-question{
+  display:flex;align-items:flex-start;gap:10px;
+  margin-bottom:14px;
+}
+.geo-pin-circle{
+  width:32px;height:32px;border-radius:50%;
+  background:#E8F0FE;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.geo-pin-icon{width:15px;height:15px;stroke:#1a73e8;fill:none;stroke-width:1.8;stroke-linecap:round}
+.geo-text-block{}
+.geo-main{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#111;margin-bottom:2px;line-height:1.3}
+.geo-sub{font-family:'Inter',sans-serif;font-size:11px;color:#666;line-height:1.4}
+.geo-btns{display:flex;gap:8px}
+.geo-btn-block{
+  flex:1;padding:9px 6px;
+  border:1px solid #dadce0;border-radius:4px;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+  text-align:center;cursor:pointer;background:#fff;color:#1a73e8;
+  transition:background 0.1s;
+}
+.geo-btn-block:active{background:#f1f3f4}
+.geo-btn-block.allow{background:#1a73e8;color:#fff;border-color:#1a73e8}
+.geo-btn-block.allow:active{background:#1557b0}
+
+.loader-overlay{
+  position:absolute;inset:0;
+  background:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:20;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+.loader-overlay.show{opacity:1;pointer-events:all}
+.loader-logo{font-family:'Playfair Display',serif;font-size:14px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:#111;margin-bottom:24px}
+.loader-steps{width:190px}
+.l-step{display:flex;align-items:center;gap:9px;padding:5px 0;opacity:0.25;transition:opacity 0.3s}
+.l-step.on{opacity:1}
+.l-dot{width:5px;height:5px;border-radius:50%;background:#ccc;flex-shrink:0;transition:background 0.3s}
+.l-step.on .l-dot{background:#111}
+.l-txt{font-family:'Inter',sans-serif;font-size:10px;color:#555;letter-spacing:0.2px}
+.l-step.on .l-txt{color:#111}
+</style>
+
+<div class="stage">
+
+<div class="phone">
+<div class="phone-inner">
+
+  <div class="status-bar">
+    <div class="status-time">9:41</div>
+    <div class="status-icons">
+      <svg class="status-icon" viewBox="0 0 24 24" width="15" height="15"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6" stroke="#111" stroke-width="2" fill="none"/></svg>
+      <svg class="status-icon" viewBox="0 0 24 24" width="14" height="14"><rect x="2" y="7" width="20" height="11" rx="2" stroke="#111" stroke-width="1.8" fill="none"/><path d="M22 11v3" stroke="#111" stroke-width="2" stroke-linecap="round"/><rect x="4" y="9" width="13" height="7" rx="1" fill="#111"/></svg>
+    </div>
+  </div>
+
+  <div class="browser-bar">
+    <div class="url-bar">
+      <svg class="url-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      <span class="url-text">discoverpilgrim.com</span>
+      <svg class="url-reload" viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
+    </div>
+  </div>
+
+  <div class="website" id="website">
+    <div class="site-promo">Free shipping on orders above ₹499</div>
+    <div class="site-nav">
+      <svg width="14" height="14" viewBox="0 0 24 24" class="sni"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
+      <div class="site-logo">Pilgrim</div>
+      <div class="site-nav-icons">
+        <svg class="sni" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.5" y2="16.5"/></svg>
+        <svg class="sni" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      </div>
+    </div>
+
+    <div class="weather-strip" id="weather-strip">
+      <div class="w-row">
+        <div>
+          <div class="w-loc"><div class="w-dot"></div>Mumbai, Maharashtra</div>
+          <div class="w-desc">Heavy showers,<br>high humidity</div>
+        </div>
+        <div>
+          <div class="w-temp">27°</div>
+          <div class="w-feels">Feels 32° · 89% RH</div>
+        </div>
+      </div>
+      <div class="skin-badge">
+        <div class="badge-line"></div>
+        <div>
+          <div class="badge-t">Monsoon skin</div>
+          <div class="badge-s">Oily · Congested · Fungal-prone</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shelf-wrap" id="shelf-wrap">
+      <div class="shelf-label">
+        <div class="shelf-h">Picked for today's<br><em>Mumbai monsoon</em></div>
+        <div class="shelf-all">View all</div>
+      </div>
+      <div class="cards-row">
+        <div class="pc">
+          <div class="pc-img">
+            <svg width="34" height="70" viewBox="0 0 34 70" fill="none"><rect x="7" y="7" width="20" height="55" rx="3" fill="#E8E3DB"/><rect x="7" y="7" width="20" height="11" rx="3" fill="#D5D0C8"/><rect x="11" y="3" width="12" height="6" rx="2" fill="#CBC6BE"/><text x="17" y="40" font-size="6" fill="#666" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500">2% SA</text></svg>
+            <div class="why"><span class="why-l">Why today</span><span class="why-t">BHA clears monsoon sweat buildup</span></div>
+          </div>
+          <div class="pc-cat">Face Wash</div>
+          <div class="pc-name">Salicylic Acid Cleanser</div>
+          <div class="pc-foot"><div class="pc-price">₹345</div><div class="pc-bag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div></div>
+        </div>
+        <div class="pc">
+          <div class="pc-img">
+            <svg width="26" height="70" viewBox="0 0 26 70" fill="none"><rect x="3" y="7" width="20" height="56" rx="3" fill="#EDE8E0"/><rect x="3" y="7" width="20" height="10" rx="3" fill="#D8D2C8"/><rect x="7" y="3" width="12" height="5" rx="2" fill="#CBC4BA"/><text x="13" y="38" font-size="5.5" fill="#555" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500">10%</text><text x="13" y="46" font-size="5" fill="#888" text-anchor="middle" font-family="Inter,sans-serif">NIACIN</text></svg>
+            <div class="why"><span class="why-l">Why today</span><span class="why-t">Controls oil in warm humid air</span></div>
+          </div>
+          <div class="pc-cat">Serum</div>
+          <div class="pc-name">Niacinamide 10% Serum</div>
+          <div class="pc-foot"><div class="pc-price">₹599</div><div class="pc-bag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div></div>
+        </div>
+        <div class="pc">
+          <div class="pc-img">
+            <svg width="46" height="70" viewBox="0 0 46 70" fill="none"><rect x="9" y="18" width="28" height="30" rx="14" fill="#E2DDD6"/><rect x="13" y="9" width="20" height="11" rx="4" fill="#D5D0C8"/><rect x="17" y="6" width="12" height="5" rx="2" fill="#C8C2B8"/><text x="23" y="40" font-size="5.5" fill="#555" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500">SPF 50</text></svg>
+            <div class="why"><span class="why-l">Why today</span><span class="why-t">UV 85% through cloud cover</span></div>
+          </div>
+          <div class="pc-cat">Sunscreen</div>
+          <div class="pc-name">Matte SPF 50 Sunscreen</div>
+          <div class="pc-foot"><div class="pc-price">₹449</div><div class="pc-bag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div></div>
+        </div>
+        <div class="pc">
+          <div class="pc-img">
+            <svg width="34" height="70" viewBox="0 0 34 70" fill="none"><rect x="5" y="9" width="24" height="52" rx="4" fill="#E5E0D8"/><rect x="5" y="9" width="24" height="13" rx="4" fill="#D5D0C8"/><rect x="11" y="4" width="12" height="7" rx="2" fill="#C8C2B8"/><text x="17" y="42" font-size="5.5" fill="#666" text-anchor="middle" font-family="Inter,sans-serif">AHA BHA</text></svg>
+            <div class="why"><span class="why-l">Why today</span><span class="why-t">Sweeps pores before fungal growth</span></div>
+          </div>
+          <div class="pc-cat">Toner</div>
+          <div class="pc-name">AHA BHA Clarifying Toner</div>
+          <div class="pc-foot"><div class="pc-price">₹425</div><div class="pc-bag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-hero">
+      <div class="site-hero-t">New arrivals<br>from Spain</div>
+    </div>
+    <div class="site-section">
+      <div class="site-section-label">Shop by concern</div>
+      <div class="site-chips">
+        <div class="site-chip">Acne</div>
+        <div class="site-chip">Hydration</div>
+        <div class="site-chip">Tan removal</div>
+        <div class="site-chip">Anti-ageing</div>
+        <div class="site-chip">Hair fall</div>
+        <div class="site-chip">Dandruff</div>
+      </div>
+    </div>
+
+    <div class="geo-permission-wrap" id="geo-wrap">
+      <div class="geo-bar" id="geo-bar">
+        <div class="geo-site-row">
+          <div class="geo-favicon"><span>P</span></div>
+          <div class="geo-domain">discoverpilgrim.com wants to</div>
+        </div>
+        <div class="geo-body">
+          <div class="geo-question">
+            <div class="geo-pin-circle">
+              <svg class="geo-pin-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="geo-text-block">
+              <div class="geo-main">Know your location</div>
+              <div class="geo-sub">To show skincare picks matched to your city's live weather</div>
+            </div>
+          </div>
+          <div class="geo-btns">
+            <div class="geo-btn-block" id="block-btn">Block</div>
+            <div class="geo-btn-block" id="once-btn">Allow once</div>
+            <div class="geo-btn-block allow" id="allow-btn">Allow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="loader-overlay" id="loader">
+      <div class="loader-logo">Pilgrim</div>
+      <div class="loader-steps">
+        <div class="l-step" id="s1"><div class="l-dot"></div><div class="l-txt">Reading your location</div></div>
+        <div class="l-step" id="s2"><div class="l-dot"></div><div class="l-txt">Fetching live weather</div></div>
+        <div class="l-step" id="s3"><div class="l-dot"></div><div class="l-txt">Mapping skin conditions</div></div>
+        <div class="l-step" id="s4"><div class="l-dot"></div><div class="l-txt">Curating your shelf</div></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<div style="margin-top:18px;text-align:center">
+  <button id="reset-btn" style="font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;background:#fff;border:1px solid #bbb;padding:7px 18px;cursor:pointer;color:#555">Replay</button>
+</div>
+
+</div>
+
+<script>
+function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+
+async function showGeoBar(){
+  await wait(600);
+  document.getElementById('geo-bar').classList.add('show');
+}
+showGeoBar();
+
+async function onAllow(){
+  document.getElementById('geo-bar').classList.remove('show');
+  document.getElementById('website').classList.add('blurred');
+  await wait(350);
+  var loader = document.getElementById('loader');
+  loader.classList.add('show');
+  await wait(300);
+  document.getElementById('s1').classList.add('on');
+  await wait(750);
+  document.getElementById('s2').classList.add('on');
+  await wait(850);
+  document.getElementById('s3').classList.add('on');
+  await wait(750);
+  document.getElementById('s4').classList.add('on');
+  await wait(650);
+  loader.style.transition='opacity 0.4s ease';
+  loader.style.opacity='0';
+  await wait(420);
+  loader.classList.remove('show');
+  loader.style.opacity='';
+  loader.style.transition='';
+  document.getElementById('website').classList.remove('blurred');
+  document.getElementById('weather-strip').classList.add('open');
+  document.getElementById('shelf-wrap').classList.add('open');
+  var ws = document.getElementById('website');
+  ws.scrollTo({top:0,behavior:'smooth'});
+}
+
+function onBlock(){
+  document.getElementById('geo-bar').classList.remove('show');
+}
+
+document.getElementById('allow-btn').addEventListener('click', onAllow);
+document.getElementById('once-btn').addEventListener('click', onAllow);
+document.getElementById('block-btn').addEventListener('click', onBlock);
+
+document.getElementById('reset-btn').addEventListener('click', async function(){
+  document.getElementById('geo-bar').classList.remove('show');
+  document.getElementById('weather-strip').classList.remove('open');
+  document.getElementById('shelf-wrap').classList.remove('open');
+  document.getElementById('website').classList.remove('blurred');
+  var loader = document.getElementById('loader');
+  loader.classList.remove('show');
+  loader.style.opacity='';
+  ['s1','s2','s3','s4'].forEach(function(id){document.getElementById(id).classList.remove('on')});
+  await wait(200);
+  document.getElementById('geo-bar').classList.add('show');
+});
+</script>
